@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Code Ness</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#111;
+color:white;
+text-align:center;
+padding:40px;
+}
+
+button{
+display:block;
+width:300px;
+margin:15px auto;
+padding:20px;
+font-size:22px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎵 Le Code Ness</h1>
+
+<button onclick="jouer('https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/ca-va-peter.mp3')">sa va peter</button>
+<button onclick="jouer('https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/couscous-merguez.mp3')">coucous mergez</button>
+<button onclick="jouer('https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/quoi-de-neuf-dans-ton-troue.mp3')">ton trou</button>
+
+<script>
+function jouer(url){
+new Audio(url).play();
+}
+</script>
+
+</body>
+</html>
