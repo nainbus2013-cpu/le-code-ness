@@ -6,17 +6,23 @@
 </head>
 <body>
 
-<h1>Administration</h1>
+<h1>Connexion Admin</h1>
 
 <script>
+const users = {
+    "administrateur": "Théoleroy2013*",
+    "admin2": "Test1234"
+};
+
+const id = prompt("Identifiant ?");
 const mdp = prompt("Mot de passe ?");
 
-if (mdp !== "Théoleroy2013*") {
-    document.body.innerHTML = "<h1>Accès refusé</h1>";
+if (users[id] && users[id] === mdp) {
+    document.body.innerHTML = "<h1>Bienvenue " + id + "</h1>";
 } else {
-    window.location.href = "/";
+    document.body.innerHTML = "<h1>Accès refusé</h1>";
 }
-</script>>
+</script>
 
 </body>
 </html>
