@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin</title>
+</head>
+<body>
+
+<h1>Administration</h1>
+
+<script>
+const mdp = prompt("Mot de passe ?");
+
+if (mdp !== "Théoleroy2013*") {
+    document.body.innerHTML = "<h1>Accès refusé</h1>";
+} else {
+    document.body.innerHTML = "<h1>Bienvenue Admin</h1>";
+}
+</script>
+
+</body>
+</html>
