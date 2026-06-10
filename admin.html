@@ -8,20 +8,32 @@
 
 <h1>Connexion Admin</h1>
 
+<form onsubmit="login(event)">
+  <input type="text" id="id" placeholder="Identifiant"><br><br>
+
+  <input type="password" id="mdp" placeholder="Mot de passe"><br><br>
+
+  <button type="submit">Se connecter</button>
+</form>
+
 <script>
 const users = {
-    "administrateur": "Théoleroy2013*",
-    "admin2": "Test1234"
+  "administrateur": "Théoleroy2013*",
+  "admin2": "Test1234"
 };
 
-const id = prompt("Identifiant ?");
-const mdp = prompt("Mot de passe ?");
+function login(event) {
+  event.preventDefault();
 
-if (users[id] && users[id] === mdp) {
+  const id = document.getElementById("id").value;
+  const mdp = document.getElementById("mdp").value;
+
+  if (users[id] && users[id] === mdp) {
     alert("Connexion réussie !");
     window.location.href = "/";
-} else {
-    document.body.innerHTML = "<h1>Accès refusé</h1>";
+  } else {
+    alert("Accès refusé");
+  }
 }
 </script>
 
