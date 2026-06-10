@@ -8,90 +8,60 @@
 body {
   margin: 0;
   font-family: Arial;
+
+  /* 💚 fond vert */
+  background: #00b050;
+
   height: 100vh;
-  overflow: hidden;
-  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* fond décoratif */
-.bg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-/* “boutons UI” décoratifs */
-.btn-bg {
-  position: absolute;
-  padding: 10px 20px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: white;
-  font-size: 12px;
-  backdrop-filter: blur(5px);
-}
-
-/* positions aléatoires */
-.b1 { top: 10%; left: 5%; }
-.b2 { top: 20%; left: 80%; }
-.b3 { top: 70%; left: 10%; }
-.b4 { top: 60%; left: 85%; }
-.b5 { top: 40%; left: 50%; }
-.b6 { top: 85%; left: 40%; }
-
-/* login card */
+/* carte login */
 .card {
-  position: relative;
-  z-index: 10;
-  width: 90%;
-  max-width: 400px;
-  margin: auto;
-  top: 50%;
-  transform: translateY(-50%);
-
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
+  background: white;
   padding: 40px;
   border-radius: 20px;
-  color: white;
+  width: 90%;
+  max-width: 400px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 input {
   width: 100%;
   padding: 15px;
   margin: 10px 0;
-  border-radius: 10px;
-  border: none;
   font-size: 18px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
 }
 
 button {
   width: 100%;
   padding: 15px;
+  font-size: 18px;
   border-radius: 10px;
   border: none;
-  background: #00c6ff;
+  background: #007bff;
   color: white;
-  font-size: 18px;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.info {
+  margin-top: 10px;
+  font-size: 14px;
+  color: gray;
 }
 </style>
 
 </head>
 
 <body>
-
-<div class="bg">
-  <div class="btn-bg b1">Dashboard</div>
-  <div class="btn-bg b2">Users</div>
-  <div class="btn-bg b3">Settings</div>
-  <div class="btn-bg b4">Logs</div>
-  <div class="btn-bg b5">System</div>
-  <div class="btn-bg b6">Admin</div>
-</div>
 
 <div class="card">
   <h1>Code Ness</h1>
@@ -102,6 +72,10 @@ button {
     <input type="password" id="mdp" placeholder="Mot de passe">
     <button type="submit">Se connecter</button>
   </form>
+
+  <div class="info">
+    Pour obtenir un compte, contactez l’administrateur Théo
+  </div>
 </div>
 
 <script>
