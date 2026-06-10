@@ -2,119 +2,103 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Admin</title>
+<title>Code Ness</title>
 
 <style>
 body {
-  font-family: Arial;
-  text-align: center;
   margin: 0;
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
-  color: white;
-}
+  font-family: Arial;
+  height: 100vh;
 
-/* HEADER */
-.header {
+  /* fond moderne */
+  background: url("https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5") no-repeat center/cover;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
-  padding: 20px;
-  background: rgba(0,0,0,0.3);
 }
 
-.logo {
-  width: 50px;
-  height: 50px;
-  background: white;
-  border-radius: 50%;
+/* flou derrière */
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
 }
 
-/* INFO BOX (FOND) */
-.info {
-  margin: 20px auto;
-  width: 85%;
-  max-width: 600px;
-  background: rgba(0,0,0,0.4);
-  padding: 20px;
-  border-radius: 15px;
-  font-size: 18px;
-  line-height: 1.5;
-}
-
-/* FORM */
-.container {
-  margin-top: 30px;
-}
-
-input {
-  width: 80%;
+/* carte login */
+.card {
+  position: relative;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 20px;
+  width: 90%;
   max-width: 400px;
-  font-size: 22px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+/* inputs */
+input {
+  width: 100%;
   padding: 15px;
   margin: 10px 0;
-  border-radius: 10px;
   border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  outline: none;
 }
 
+/* bouton */
 button {
-  width: 80%;
-  max-width: 400px;
-  font-size: 22px;
+  width: 100%;
   padding: 15px;
-  border-radius: 10px;
+  margin-top: 10px;
   border: none;
+  border-radius: 10px;
   background: #00c6ff;
   color: white;
+  font-size: 18px;
+  cursor: pointer;
 }
 
 button:hover {
   background: #0099cc;
 }
 
-/* FOOTER */
-footer {
-  position: fixed;
-  bottom: 10px;
-  width: 100%;
-  font-size: 16px;
+.info {
+  font-size: 14px;
   opacity: 0.8;
+  margin-top: 10px;
 }
 </style>
 
 </head>
+
 <body>
 
-<div class="header">
-  <div class="logo"></div>
-  <h2>Code Ness</h2>
+<div class="overlay"></div>
+
+<div class="card">
+  <h1>Code Ness</h1>
+  <p>Authentification</p>
+
+  <form onsubmit="login(event)">
+    <input type="text" id="id" placeholder="Identifiant">
+    <input type="password" id="mdp" placeholder="Mot de passe">
+    <button type="submit">Se connecter</button>
+  </form>
+
+  <div class="info">
+    Pour obtenir un compte, contactez l’administrateur Théo
+  </div>
 </div>
-
-<!-- INFORMATION -->
-<div class="info">
-  <h3>Information</h3>
-  <p>
-    Pour ceux qui veulent un compte dans ce site, il faut aller voir l’administrateur Théo.
-  </p>
-</div>
-
-<div class="container">
-
-<h1>Authentification</h1>
-
-<form onsubmit="login(event)">
-  <input type="text" id="id" placeholder="Identifiant"><br>
-
-  <input type="password" id="mdp" placeholder="Mot de passe"><br>
-
-  <button type="submit">Se connecter</button>
-</form>
-
-</div>
-
-<footer>
-  Théo et Carl
-</footer>
 
 <script>
 const users = {
