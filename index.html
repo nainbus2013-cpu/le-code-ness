@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Le Code Ness</title>
 
+
 <style>
+
 body{
     font-family:Arial,sans-serif;
     background-image:url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
@@ -18,44 +23,105 @@ body{
     min-height:100vh;
 }
 
+
 h1{
     background:rgba(0,0,0,0.7);
     padding:20px;
     border-radius:20px;
     display:inline-block;
-    margin-bottom:30px;
 }
 
-button{
-    width:200px;
-    height:200px;
-    margin:10px;
-    font-size:22px;
-    font-weight:bold;
-    border:none;
-    border-radius:20px;
-    cursor:pointer;
-    transition:0.2s;
-    background:white;
-    color:black;
-    display:inline-block;
-    vertical-align:top;
+
+
+#connexion{
+
+background:rgba(0,0,0,0.7);
+padding:30px;
+border-radius:20px;
+width:300px;
+margin:auto;
+
 }
 
-button:hover{
-    transform:scale(1.08);
+
+input{
+
+width:90%;
+padding:15px;
+margin:10px;
+border-radius:10px;
+border:none;
+font-size:18px;
+
 }
+
+
+
+.login{
+
+width:200px;
+height:60px;
+background:#00c6ff;
+color:white;
+border:none;
+border-radius:15px;
+font-size:20px;
+cursor:pointer;
+
+}
+
+
+
+#site{
+
+display:none;
+
+}
+
+
+
+.son{
+
+width:200px;
+height:200px;
+margin:10px;
+font-size:22px;
+font-weight:bold;
+border:none;
+border-radius:20px;
+cursor:pointer;
+background:white;
+color:black;
+
+}
+
+
+.son:hover{
+
+transform:scale(1.08);
+
+}
+
 
 .playing{
-    background:limegreen;
-    color:white;
+
+background:limegreen;
+color:white;
+
 }
+
+
 </style>
+
 
 </head>
 
 
+
 <body>
+
+
+<div id="connexion">
 
 
 <h1>🎵 Le Code Ness 🎵</h1>
@@ -64,73 +130,181 @@ button:hover{
 <br>
 
 
-<button onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/ca-va-peter.mp3')">
+<input id="identifiant" placeholder="Identifiant">
+
+
+<input id="motdepasse" type="password" placeholder="Mot de passe">
+
+
+<br>
+
+
+<button class="login" onclick="connexion()">
+
+Entrer
+
+</button>
+
+
+<p>
+Accès privé
+</p>
+
+
+</div>
+
+
+
+
+
+<div id="site">
+
+
+<h1>🎵 Le Code Ness 🎵</h1>
+
+
+<br>
+
+
+<button class="son" onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/ca-va-peter.mp3')">
 sa va peter
 </button>
 
 
-<button onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/couscous-merguez.mp3')">
+<button class="son" onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/couscous-merguez.mp3')">
 coucous mergez
 </button>
 
 
-<button onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/quoi-de-neuf-dans-ton-troue.mp3')">
+<button class="son" onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/quoi-de-neuf-dans-ton-troue.mp3')">
 ton trou
 </button>
 
 
-<button onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/vos-meres-cest-des-dinosaures-tk78%20(1).mp3')">
+<button class="son" onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/vos-meres-cest-des-dinosaures-tk78%20(1).mp3')">
 vos mere les dinozaures
 </button>
 
 
-<button onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/detecteur-de-mensonges-des-enfants-_-louna-ccvb-4.mp3')">
+<button class="son" onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/detecteur-de-mensonges-des-enfants-_-louna-ccvb-4.mp3')">
 arracher les yeux
 </button>
 
 
-<button onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/caca_c_d_licieux_.mp3')">
+<button class="son" onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/caca_c_d_licieux_.mp3')">
 caca delicieux
 </button>
+
+
+</div>
+
+
 
 
 
 <script>
 
-let audioActuel = null;
-let boutonActuel = null;
+
+const comptes = {
+
+"adm":"Théoleroy2013*",
+
+"barbancon":"kaboom08"
+
+};
 
 
-function jouer(bouton, url) {
-
-    if (audioActuel) {
-        audioActuel.pause();
-        audioActuel.currentTime = 0;
-    }
 
 
-    if (boutonActuel) {
-        boutonActuel.classList.remove("playing");
-    }
+function connexion(){
 
 
-    audioActuel = new Audio(url);
-    boutonActuel = bouton;
+let id = document.getElementById("identifiant").value;
+
+let mdp = document.getElementById("motdepasse").value;
 
 
-    bouton.classList.add("playing");
+
+if(comptes[id] && comptes[id] === mdp){
 
 
-    audioActuel.play();
+document.getElementById("connexion").style.display="none";
 
 
-    audioActuel.onended = () => {
-        bouton.classList.remove("playing");
-    };
+document.getElementById("site").style.display="block";
+
 
 }
 
+else{
+
+
+alert("Identifiant ou mot de passe incorrect");
+
+
+}
+
+
+}
+
+
+
+
+
+let audioActuel=null;
+
+let boutonActuel=null;
+
+
+
+
+function jouer(bouton,url){
+
+
+if(audioActuel){
+
+audioActuel.pause();
+
+audioActuel.currentTime=0;
+
+}
+
+
+
+if(boutonActuel){
+
+boutonActuel.classList.remove("playing");
+
+}
+
+
+
+audioActuel=new Audio(url);
+
+
+boutonActuel=bouton;
+
+
+bouton.classList.add("playing");
+
+
+audioActuel.play();
+
+
+
+audioActuel.onended=()=>{
+
+bouton.classList.remove("playing");
+
+};
+
+
+}
+
+
+
 </script>
+
 
 
 </body>
