@@ -8,6 +8,30 @@
 body {
   font-family: Arial;
   text-align: center;
+  margin: 0;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+  background: rgba(0,0,0,0.3);
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  background: white;
+  border-radius: 50%;
+}
+
+/* FORM */
+.container {
   margin-top: 80px;
 }
 
@@ -18,7 +42,7 @@ input {
   padding: 15px;
   margin: 10px 0;
   border-radius: 10px;
-  border: 1px solid #ccc;
+  border: none;
 }
 
 button {
@@ -28,17 +52,33 @@ button {
   padding: 15px;
   border-radius: 10px;
   border: none;
-  background: #007bff;
+  background: #00c6ff;
   color: white;
 }
 
 button:hover {
-  background: #0056b3;
+  background: #0099cc;
+}
+
+/* FOOTER */
+footer {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  font-size: 16px;
+  opacity: 0.8;
 }
 </style>
 
 </head>
 <body>
+
+<div class="header">
+  <div class="logo"></div>
+  <h2>Code Ness</h2>
+</div>
+
+<div class="container">
 
 <h1>Authentification</h1>
 
@@ -49,6 +89,12 @@ button:hover {
 
   <button type="submit">Se connecter</button>
 </form>
+
+</div>
+
+<footer>
+  Théo et Carl
+</footer>
 
 <script>
 const users = {
