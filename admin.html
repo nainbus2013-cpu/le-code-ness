@@ -9,73 +9,74 @@ body {
   margin: 0;
   font-family: Arial;
   height: 100vh;
-
-  /* fond moderne */
-  background: url("https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5") no-repeat center/cover;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
+  background: #0f172a;
 }
 
-/* flou derrière */
-.overlay {
+/* fond décoratif */
+.bg {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
+  overflow: hidden;
 }
 
-/* carte login */
+/* “boutons UI” décoratifs */
+.btn-bg {
+  position: absolute;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  font-size: 12px;
+  backdrop-filter: blur(5px);
+}
+
+/* positions aléatoires */
+.b1 { top: 10%; left: 5%; }
+.b2 { top: 20%; left: 80%; }
+.b3 { top: 70%; left: 10%; }
+.b4 { top: 60%; left: 85%; }
+.b5 { top: 40%; left: 50%; }
+.b6 { top: 85%; left: 40%; }
+
+/* login card */
 .card {
   position: relative;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(10px);
-  padding: 40px;
-  border-radius: 20px;
+  z-index: 10;
   width: 90%;
   max-width: 400px;
+  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
+
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  padding: 40px;
+  border-radius: 20px;
   color: white;
   text-align: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-h1 {
-  margin-bottom: 20px;
-}
-
-/* inputs */
 input {
   width: 100%;
   padding: 15px;
   margin: 10px 0;
-  border: none;
   border-radius: 10px;
+  border: none;
   font-size: 18px;
-  outline: none;
 }
 
-/* bouton */
 button {
   width: 100%;
   padding: 15px;
-  margin-top: 10px;
-  border: none;
   border-radius: 10px;
+  border: none;
   background: #00c6ff;
   color: white;
   font-size: 18px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #0099cc;
-}
-
-.info {
-  font-size: 14px;
-  opacity: 0.8;
-  margin-top: 10px;
 }
 </style>
 
@@ -83,7 +84,14 @@ button:hover {
 
 <body>
 
-<div class="overlay"></div>
+<div class="bg">
+  <div class="btn-bg b1">Dashboard</div>
+  <div class="btn-bg b2">Users</div>
+  <div class="btn-bg b3">Settings</div>
+  <div class="btn-bg b4">Logs</div>
+  <div class="btn-bg b5">System</div>
+  <div class="btn-bg b6">Admin</div>
+</div>
 
 <div class="card">
   <h1>Code Ness</h1>
@@ -94,10 +102,6 @@ button:hover {
     <input type="password" id="mdp" placeholder="Mot de passe">
     <button type="submit">Se connecter</button>
   </form>
-
-  <div class="info">
-    Pour obtenir un compte, contactez l’administrateur Théo
-  </div>
 </div>
 
 <script>
