@@ -3,15 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <title>Admin</title>
+
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  margin-top: 80px;
+}
+
+input {
+  width: 80%;
+  max-width: 400px;
+  font-size: 22px;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 80%;
+  max-width: 400px;
+  font-size: 22px;
+  padding: 15px;
+  border-radius: 10px;
+  border: none;
+  background: #007bff;
+  color: white;
+}
+button:hover {
+  background: #0056b3;
+}
+</style>
+
 </head>
 <body>
 
 <h1>Connexion Admin</h1>
 
 <form onsubmit="login(event)">
-  <input type="text" id="id" placeholder="Identifiant"><br><br>
+  <input type="text" id="id" placeholder="Identifiant"><br>
 
-  <input type="password" id="mdp" placeholder="Mot de passe"><br><br>
+  <input type="password" id="mdp" placeholder="Mot de passe"><br>
 
   <button type="submit">Se connecter</button>
 </form>
