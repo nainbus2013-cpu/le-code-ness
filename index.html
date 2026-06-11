@@ -32,25 +32,37 @@ display:inline-block;
 
 
 #connexion{
+
 background:rgba(0,0,0,0.7);
 padding:30px;
 border-radius:20px;
 width:300px;
 margin:auto;
+
 }
 
 
 input{
+
 width:90%;
 padding:15px;
 margin:10px;
 border-radius:10px;
 border:none;
 font-size:18px;
+
+}
+
+
+button{
+
+cursor:pointer;
+
 }
 
 
 .login{
+
 width:200px;
 height:60px;
 background:#00c6ff;
@@ -58,7 +70,7 @@ color:white;
 border:none;
 border-radius:15px;
 font-size:20px;
-cursor:pointer;
+
 }
 
 
@@ -67,7 +79,9 @@ display:none;
 }
 
 
+
 .son{
+
 width:200px;
 height:200px;
 margin:10px;
@@ -75,16 +89,20 @@ font-size:22px;
 font-weight:bold;
 border:none;
 border-radius:20px;
-cursor:pointer;
 background:white;
 color:black;
+
 }
+
 
 
 .playing{
+
 background:limegreen;
 color:white;
+
 }
+
 
 
 #adminBtn{
@@ -93,62 +111,52 @@ display:none;
 position:fixed;
 top:20px;
 right:20px;
-width:60px;
-height:60px;
+width:65px;
+height:65px;
 border-radius:50%;
 background:red;
 color:white;
 font-size:25px;
-z-index:999;
-
-}
-
-
-#lockBtn{
-
-display:none;
-position:fixed;
-top:20px;
-right:100px;
-width:80px;
-height:60px;
-border-radius:15px;
-background:orange;
-color:white;
 border:none;
-z-index:999;
+z-index:99;
 
 }
 
 
-#adminPanel{
+
+
+#adminMenu{
 
 display:none;
 position:fixed;
-top:90px;
+top:95px;
 right:20px;
-background:rgba(0,0,0,0.85);
+background:rgba(0,0,0,0.9);
 padding:20px;
 border-radius:15px;
-z-index:999;
+z-index:99;
 
 }
 
 
-#adminPanel button{
+#adminMenu button{
 
-width:160px;
-height:45px;
-margin:5px;
+display:block;
+width:180px;
+margin:8px;
+padding:12px;
+border-radius:10px;
 
 }
+
 
 
 .bloque{
+
 opacity:0.4;
 pointer-events:none;
-}
 
+}
 
 </style>
 
@@ -159,23 +167,31 @@ pointer-events:none;
 
 
 
+
 <div id="connexion">
+
 
 <h1>🎵 Le Code Ness 🎵</h1>
 
-<br>
 
 <input id="identifiant" placeholder="Identifiant">
 
+
 <input id="motdepasse" type="password" placeholder="Mot de passe">
+
 
 <br>
 
-<button class="login" onclick="connexion()">Entrer</button>
 
-<p>Accès privé</p>
+<button class="login" onclick="connexion()">
+Entrer
+</button>
+
 
 </div>
+
+
+
 
 
 
@@ -186,6 +202,7 @@ pointer-events:none;
 <h1>🎵 Le Code Ness 🎵</h1>
 
 <h2 id="bienvenue"></h2>
+
 
 
 
@@ -219,28 +236,48 @@ caca delicieux
 </button>
 
 
+
 </div>
+
+
 
 
 
 <button id="adminBtn" onclick="ouvrirAdmin()">⚙️</button>
 
-<button id="lockBtn" onclick="changerVerrou()">🔓</button>
 
 
+<div id="adminMenu">
 
-<div id="adminPanel">
 
 <h3>Admin</h3>
 
-<div id="listeAdmin"></div>
+
+<button onclick="verrouSite()">
+🔒 Verrouiller / déverrouiller
+</button>
+
+
+<button onclick="bloquerSons()">
+🔇 Bloquer / débloquer sons
+</button>
+
+
+<button onclick="bloquerUtilisateur()">
+👤 Bloquer utilisateur
+</button>
+
 
 </div>
 
 
 
 
+
+
+
 <script>
+
 
 
 const comptes={
@@ -253,7 +290,19 @@ const comptes={
 
 
 
-let siteVerrouille = localStorage.getItem("siteVerrouille") === "true";
+let verrou =
+localStorage.getItem("verrou")==="true";
+
+
+let sonsBloques =
+JSON.parse(localStorage.getItem("sonsBloques")) || [];
+
+
+
+let usersBloques =
+JSON.parse(localStorage.getItem("usersBloques")) || [];
+
+
 
 
 
@@ -268,18 +317,35 @@ let mdp=document.getElementById("motdepasse").value;
 
 
 
-if(comptes[id] && comptes[id]===mdp){
+if(!comptes[id] || comptes[id]!==mdp){
+
+alert("Identifiant incorrect");
+
+return;
+
+}
 
 
 
-if(siteVerrouille && id!=="administrateur"){
 
+if(verrou && id!=="administrateur"){
 
 alert("🔧 Désolé, le site est en mise à jour. Contactez l'administrateur.");
 
 return;
 
 }
+
+
+
+if(usersBloques.includes(id)){
+
+alert("⛔ Compte bloqué");
+
+return;
+
+}
+
 
 
 
@@ -290,35 +356,23 @@ document.getElementById("site").style.display="block";
 
 
 
-if(id==="administrateur"){
+document.getElementById("bienvenue").innerHTML =
+id==="administrateur" ?
+"👑 Bonjour admin !" :
+"Bonjour "+id+" !";
 
+
+
+
+if(id==="administrateur"){
 
 document.getElementById("adminBtn").style.display="block";
 
-document.getElementById("lockBtn").style.display="block";
-
-document.getElementById("bienvenue").innerHTML="👑 Bonjour admin !";
-
-
-}
-
-else{
-
-
-document.getElementById("bienvenue").innerHTML="Bonjour "+id+" !";
-
-
 }
 
 
-}
 
-else{
-
-
-alert("Identifiant ou mot de passe incorrect");
-
-}
+chargerBlocages();
 
 
 }
@@ -329,86 +383,23 @@ alert("Identifiant ou mot de passe incorrect");
 
 
 
-let audioActuel=null;
-
-let boutonActuel=null;
 
 
+function jouer(b,url){
 
-function jouer(bouton,url){
 
+if(b.classList.contains("bloque")){
 
-if(audioActuel){
-
-audioActuel.pause();
-
-audioActuel.currentTime=0;
+return;
 
 }
 
 
-if(boutonActuel){
-
-boutonActuel.classList.remove("playing");
-
-}
-
-
-audioActuel=new Audio(url);
-
-boutonActuel=bouton;
-
-
-bouton.classList.add("playing");
-
-
-audioActuel.play();
-
-
-audioActuel.onended=()=>{
-
-bouton.classList.remove("playing");
-
-};
+new Audio(url).play();
 
 
 }
 
-
-
-
-
-
-
-function changerVerrou(){
-
-
-siteVerrouille = !siteVerrouille;
-
-
-localStorage.setItem("siteVerrouille", siteVerrouille);
-
-
-
-if(siteVerrouille){
-
-document.getElementById("lockBtn").innerHTML="🔒";
-
-alert("Site verrouillé");
-
-}
-
-else{
-
-
-document.getElementById("lockBtn").innerHTML="🔓";
-
-alert("Site déverrouillé");
-
-}
-
-
-}
 
 
 
@@ -419,20 +410,103 @@ alert("Site déverrouillé");
 function ouvrirAdmin(){
 
 
-let p=document.getElementById("adminPanel");
+let menu=document.getElementById("adminMenu");
 
 
-if(p.style.display==="block"){
+menu.style.display =
+menu.style.display==="block" ?
+"none":"block";
 
-p.style.display="none";
+
+}
+
+
+
+
+
+
+
+function verrouSite(){
+
+
+verrou=!verrou;
+
+localStorage.setItem("verrou",verrou);
+
+
+alert(verrou ?
+"Site verrouillé":
+"Site déverrouillé");
+
+
+}
+
+
+
+
+
+
+
+function bloquerSons(){
+
+
+document.querySelectorAll(".son").forEach((b,i)=>{
+
+
+b.classList.toggle("bloque");
+
+
+
+if(b.classList.contains("bloque")){
+
+sonsBloques.push(i);
 
 }
 
 else{
 
-p.style.display="block";
+sonsBloques =
+sonsBloques.filter(x=>x!==i);
 
-chargerAdmin();
+}
+
+
+
+});
+
+
+
+localStorage.setItem(
+"sonsBloques",
+JSON.stringify(sonsBloques)
+);
+
+
+}
+
+
+
+
+
+function bloquerUtilisateur(){
+
+
+let nom=prompt("Nom du compte à bloquer :");
+
+
+if(nom && comptes[nom]){
+
+
+usersBloques.push(nom);
+
+
+localStorage.setItem(
+"usersBloques",
+JSON.stringify(usersBloques)
+);
+
+
+alert("Compte bloqué");
 
 }
 
@@ -444,42 +518,18 @@ chargerAdmin();
 
 
 
-function chargerAdmin(){
+function chargerBlocages(){
 
 
-let liste=document.getElementById("listeAdmin");
-
-liste.innerHTML="";
-
-
-document.querySelectorAll(".son").forEach((bouton,index)=>{
+document.querySelectorAll(".son")
+.forEach((b,i)=>{
 
 
-let b=document.createElement("button");
+if(sonsBloques.includes(i)){
 
+b.classList.add("bloque");
 
-b.innerHTML=bouton.classList.contains("bloque") ?
-"Débloquer "+(index+1):
-"Bloquer "+(index+1);
-
-
-
-b.onclick=()=>{
-
-
-bouton.classList.toggle("bloque");
-
-
-b.innerHTML=bouton.classList.contains("bloque") ?
-"Débloquer "+(index+1):
-"Bloquer "+(index+1);
-
-
-};
-
-
-
-liste.appendChild(b);
+}
 
 
 });
