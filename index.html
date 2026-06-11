@@ -196,13 +196,34 @@ border-radius:10px;
 
 
 
-</style>
+</style>#messageAdmin{
+display:none;
+position:fixed;
+top:20px;
+left:20px;
+background:rgba(0,0,0,0.85);
+padding:15px 20px;
+border-radius:20px;
+border:2px solid gold;
+box-shadow:0 0 15px gold;
+color:white;
+font-size:18px;
+text-align:left;
+z-index:999;
+}
+
+#messageAdmin small{
+color:#ffd700;
+}
 
 
 </head>
 
 
-<body>
+<body><div id="messageAdmin">
+    👑 Bienvenue administrateur<br>
+    <small>Ici vous pouvez faire ce que vous voulez.</small>
+</div>
 
 
 
@@ -439,6 +460,8 @@ id==="administrateur"
 if(id==="administrateur"){
 
 document.getElementById("adminBtn").style.display="block";
+
+document.getElementById("messageAdmin").style.display="block";
 
 }
 
