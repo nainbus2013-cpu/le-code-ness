@@ -162,6 +162,8 @@ Accès privé
 
 <h1>🎵 Le Code Ness 🎵</h1>
 
+<h2 id="bienvenue"></h2>
+
 
 <br>
 
@@ -216,6 +218,7 @@ const comptes = {
 
 
 
+
 function connexion(){
 
 
@@ -232,6 +235,23 @@ document.getElementById("connexion").style.display="none";
 
 
 document.getElementById("site").style.display="block";
+
+
+
+// message selon le compte
+
+if(id === "administrateur"){
+
+document.getElementById("bienvenue").innerHTML="👑 Bonjour admin !";
+
+}
+
+else{
+
+document.getElementById("bienvenue").innerHTML="Bonjour " + id + " !";
+
+}
+
 
 
 }
