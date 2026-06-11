@@ -31,34 +31,26 @@ display:inline-block;
 }
 
 
-
 #connexion{
-
 background:rgba(0,0,0,0.7);
 padding:30px;
 border-radius:20px;
 width:300px;
 margin:auto;
-
 }
 
 
-
 input{
-
 width:90%;
 padding:15px;
 margin:10px;
 border-radius:10px;
 border:none;
 font-size:18px;
-
 }
 
 
-
 .login{
-
 width:200px;
 height:60px;
 background:#00c6ff;
@@ -67,9 +59,7 @@ border:none;
 border-radius:15px;
 font-size:20px;
 cursor:pointer;
-
 }
-
 
 
 #site{
@@ -77,9 +67,7 @@ display:none;
 }
 
 
-
 .son{
-
 width:200px;
 height:200px;
 margin:10px;
@@ -90,22 +78,13 @@ border-radius:20px;
 cursor:pointer;
 background:white;
 color:black;
-
 }
-
-
-
-.son:hover{
-transform:scale(1.08);
-}
-
 
 
 .playing{
 background:limegreen;
 color:white;
 }
-
 
 
 #adminBtn{
@@ -125,6 +104,22 @@ z-index:999;
 }
 
 
+#lockBtn{
+
+display:none;
+position:fixed;
+top:20px;
+right:100px;
+width:80px;
+height:60px;
+border-radius:15px;
+background:orange;
+color:white;
+border:none;
+z-index:999;
+
+}
+
 
 #adminPanel{
 
@@ -140,41 +135,18 @@ z-index:999;
 }
 
 
-
 #adminPanel button{
 
-width:170px;
+width:160px;
 height:45px;
 margin:5px;
-font-size:14px;
 
 }
-
-
-
-#lockBtn{
-
-display:none;
-position:fixed;
-top:20px;
-right:100px;
-background:orange;
-color:white;
-border:none;
-border-radius:15px;
-height:60px;
-width:170px;
-z-index:999;
-
-}
-
 
 
 .bloque{
-
 opacity:0.4;
 pointer-events:none;
-
 }
 
 
@@ -189,34 +161,21 @@ pointer-events:none;
 
 <div id="connexion">
 
-
 <h1>🎵 Le Code Ness 🎵</h1>
 
-
 <br>
-
 
 <input id="identifiant" placeholder="Identifiant">
 
-
 <input id="motdepasse" type="password" placeholder="Mot de passe">
-
 
 <br>
 
-
-<button class="login" onclick="connexion()">
-
-Entrer
-
-</button>
-
+<button class="login" onclick="connexion()">Entrer</button>
 
 <p>Accès privé</p>
 
-
 </div>
-
 
 
 
@@ -260,18 +219,13 @@ caca delicieux
 </button>
 
 
-
 </div>
-
 
 
 
 <button id="adminBtn" onclick="ouvrirAdmin()">⚙️</button>
 
-
-<button id="lockBtn" onclick="changerVerrou()">
-🔓 Déverrouiller
-</button>
+<button id="lockBtn" onclick="changerVerrou()">🔓</button>
 
 
 
@@ -282,8 +236,6 @@ caca delicieux
 <div id="listeAdmin"></div>
 
 </div>
-
-
 
 
 
@@ -301,7 +253,8 @@ const comptes={
 
 
 
-let siteVerrouille=false;
+let siteVerrouille = localStorage.getItem("siteVerrouille") === "true";
+
 
 
 
@@ -321,11 +274,13 @@ if(comptes[id] && comptes[id]===mdp){
 
 if(siteVerrouille && id!=="administrateur"){
 
+
 alert("🔧 Désolé, le site est en mise à jour. Contactez l'administrateur.");
 
 return;
 
 }
+
 
 
 
@@ -358,8 +313,8 @@ document.getElementById("bienvenue").innerHTML="Bonjour "+id+" !";
 
 }
 
-
 else{
+
 
 alert("Identifiant ou mot de passe incorrect");
 
@@ -392,13 +347,11 @@ audioActuel.currentTime=0;
 }
 
 
-
 if(boutonActuel){
 
 boutonActuel.classList.remove("playing");
 
 }
-
 
 
 audioActuel=new Audio(url);
@@ -417,6 +370,42 @@ audioActuel.onended=()=>{
 bouton.classList.remove("playing");
 
 };
+
+
+}
+
+
+
+
+
+
+
+function changerVerrou(){
+
+
+siteVerrouille = !siteVerrouille;
+
+
+localStorage.setItem("siteVerrouille", siteVerrouille);
+
+
+
+if(siteVerrouille){
+
+document.getElementById("lockBtn").innerHTML="🔒";
+
+alert("Site verrouillé");
+
+}
+
+else{
+
+
+document.getElementById("lockBtn").innerHTML="🔓";
+
+alert("Site déverrouillé");
+
+}
 
 
 }
@@ -454,6 +443,7 @@ chargerAdmin();
 
 
 
+
 function chargerAdmin(){
 
 
@@ -469,7 +459,7 @@ let b=document.createElement("button");
 
 
 b.innerHTML=bouton.classList.contains("bloque") ?
-"Débloquer "+(index+1) :
+"Débloquer "+(index+1):
 "Bloquer "+(index+1);
 
 
@@ -481,7 +471,7 @@ bouton.classList.toggle("bloque");
 
 
 b.innerHTML=bouton.classList.contains("bloque") ?
-"Débloquer "+(index+1) :
+"Débloquer "+(index+1):
 "Bloquer "+(index+1);
 
 
@@ -499,39 +489,8 @@ liste.appendChild(b);
 
 
 
-
-
-function changerVerrou(){
-
-
-siteVerrouille=!siteVerrouille;
-
-
-
-if(siteVerrouille){
-
-document.getElementById("lockBtn").innerHTML="🔒 Verrouillé";
-
-alert("Site verrouillé");
-
-}
-
-else{
-
-document.getElementById("lockBtn").innerHTML="🔓 Déverrouiller";
-
-alert("Site déverrouillé");
-
-}
-
-
-}
-
-
-
 </script>
 
 
 </body>
-
 </html>
