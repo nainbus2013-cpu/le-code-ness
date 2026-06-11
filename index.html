@@ -8,27 +8,26 @@
 
 <title>Le Code Ness</title>
 
-
 <style>
 
 body{
-    font-family:Arial,sans-serif;
-    background-image:url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
-    background-size:cover;
-    background-position:center;
-    background-attachment:fixed;
-    color:white;
-    text-align:center;
-    padding:40px;
-    min-height:100vh;
+font-family:Arial,sans-serif;
+background-image:url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+color:white;
+text-align:center;
+padding:40px;
+min-height:100vh;
 }
 
 
 h1{
-    background:rgba(0,0,0,0.7);
-    padding:20px;
-    border-radius:20px;
-    display:inline-block;
+background:rgba(0,0,0,0.7);
+padding:20px;
+border-radius:20px;
+display:inline-block;
 }
 
 
@@ -42,6 +41,7 @@ width:300px;
 margin:auto;
 
 }
+
 
 
 input{
@@ -73,9 +73,7 @@ cursor:pointer;
 
 
 #site{
-
 display:none;
-
 }
 
 
@@ -96,23 +94,19 @@ color:black;
 }
 
 
+
 .son:hover{
-
 transform:scale(1.08);
-
 }
+
 
 
 .playing{
-
 background:limegreen;
 color:white;
-
 }
 
 
-
-/* ADMIN */
 
 #adminBtn{
 
@@ -126,7 +120,6 @@ border-radius:50%;
 background:red;
 color:white;
 font-size:25px;
-cursor:pointer;
 z-index:999;
 
 }
@@ -148,6 +141,35 @@ z-index:999;
 
 
 
+#adminPanel button{
+
+width:170px;
+height:45px;
+margin:5px;
+font-size:14px;
+
+}
+
+
+
+#lockBtn{
+
+display:none;
+position:fixed;
+top:20px;
+right:100px;
+background:orange;
+color:white;
+border:none;
+border-radius:15px;
+height:60px;
+width:170px;
+z-index:999;
+
+}
+
+
+
 .bloque{
 
 opacity:0.4;
@@ -158,9 +180,7 @@ pointer-events:none;
 
 </style>
 
-
 </head>
-
 
 
 <body>
@@ -192,9 +212,7 @@ Entrer
 </button>
 
 
-<p>
-Accès privé
-</p>
+<p>Accès privé</p>
 
 
 </div>
@@ -209,6 +227,7 @@ Accès privé
 <h1>🎵 Le Code Ness 🎵</h1>
 
 <h2 id="bienvenue"></h2>
+
 
 
 <button class="son" onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/ca-va-peter.mp3')">
@@ -246,21 +265,21 @@ caca delicieux
 
 
 
-<!-- BOUTON ADMIN -->
 
 <button id="adminBtn" onclick="ouvrirAdmin()">⚙️</button>
+
+
+<button id="lockBtn" onclick="changerVerrou()">
+🔓 Déverrouiller
+</button>
+
 
 
 <div id="adminPanel">
 
 <h3>Admin</h3>
 
-<button onclick="bloquer(0)">Bouton 1</button>
-<button onclick="bloquer(1)">Bouton 2</button>
-<button onclick="bloquer(2)">Bouton 3</button>
-<button onclick="bloquer(3)">Bouton 4</button>
-<button onclick="bloquer(4)">Bouton 5</button>
-<button onclick="bloquer(5)">Bouton 6</button>
+<div id="listeAdmin"></div>
 
 </div>
 
@@ -272,7 +291,7 @@ caca delicieux
 <script>
 
 
-const comptes = {
+const comptes={
 
 "administrateur":"Théoleroy2013*",
 
@@ -280,6 +299,9 @@ const comptes = {
 
 };
 
+
+
+let siteVerrouille=false;
 
 
 
@@ -296,6 +318,17 @@ let mdp=document.getElementById("motdepasse").value;
 if(comptes[id] && comptes[id]===mdp){
 
 
+
+if(siteVerrouille && id!=="administrateur"){
+
+alert("🔧 Désolé, le site est en mise à jour. Contactez l'administrateur.");
+
+return;
+
+}
+
+
+
 document.getElementById("connexion").style.display="none";
 
 document.getElementById("site").style.display="block";
@@ -306,6 +339,8 @@ if(id==="administrateur"){
 
 
 document.getElementById("adminBtn").style.display="block";
+
+document.getElementById("lockBtn").style.display="block";
 
 document.getElementById("bienvenue").innerHTML="👑 Bonjour admin !";
 
@@ -321,14 +356,12 @@ document.getElementById("bienvenue").innerHTML="Bonjour "+id+" !";
 }
 
 
-
 }
+
 
 else{
 
-
 alert("Identifiant ou mot de passe incorrect");
-
 
 }
 
@@ -359,11 +392,13 @@ audioActuel.currentTime=0;
 }
 
 
+
 if(boutonActuel){
 
 boutonActuel.classList.remove("playing");
 
 }
+
 
 
 audioActuel=new Audio(url);
@@ -375,7 +410,6 @@ bouton.classList.add("playing");
 
 
 audioActuel.play();
-
 
 
 audioActuel.onended=()=>{
@@ -390,9 +424,6 @@ bouton.classList.remove("playing");
 
 
 
-
-
-let bloque=[];
 
 
 
@@ -412,6 +443,8 @@ else{
 
 p.style.display="block";
 
+chargerAdmin();
+
 }
 
 
@@ -420,32 +453,74 @@ p.style.display="block";
 
 
 
-function bloquer(numero){
+
+function chargerAdmin(){
 
 
-let boutons=document.querySelectorAll(".son");
+let liste=document.getElementById("listeAdmin");
 
-let bouton=boutons[numero];
-
-
-
-if(bloque.includes(numero)){
+liste.innerHTML="";
 
 
-bloque=bloque.filter(x=>x!==numero);
+document.querySelectorAll(".son").forEach((bouton,index)=>{
 
-bouton.classList.remove("bloque");
 
+let b=document.createElement("button");
+
+
+b.innerHTML=bouton.classList.contains("bloque") ?
+"Débloquer "+(index+1) :
+"Bloquer "+(index+1);
+
+
+
+b.onclick=()=>{
+
+
+bouton.classList.toggle("bloque");
+
+
+b.innerHTML=bouton.classList.contains("bloque") ?
+"Débloquer "+(index+1) :
+"Bloquer "+(index+1);
+
+
+};
+
+
+
+liste.appendChild(b);
+
+
+});
+
+
+}
+
+
+
+
+
+function changerVerrou(){
+
+
+siteVerrouille=!siteVerrouille;
+
+
+
+if(siteVerrouille){
+
+document.getElementById("lockBtn").innerHTML="🔒 Verrouillé";
+
+alert("Site verrouillé");
 
 }
 
 else{
 
+document.getElementById("lockBtn").innerHTML="🔓 Déverrouiller";
 
-bloque.push(numero);
-
-bouton.classList.add("bloque");
-
+alert("Site déverrouillé");
 
 }
 
@@ -457,6 +532,6 @@ bouton.classList.add("bloque");
 </script>
 
 
-
 </body>
+
 </html>
