@@ -129,14 +129,33 @@ display:none;
 position:fixed;
 top:20px;
 right:20px;
-width:65px;
-height:65px;
-border-radius:50%;
-background:red;
-color:white;
-font-size:25px;
+
+width:80px;
+height:80px;
+
 border:none;
-z-index:99;
+border-radius:50%;
+
+background:linear-gradient(135deg,#ff0000,#ff7300);
+
+color:white;
+font-size:35px;
+
+cursor:pointer;
+
+box-shadow:0 0 25px rgba(255,0,0,0.8);
+
+transition:0.3s;
+
+z-index:999;
+
+}
+
+#adminBtn:hover{
+
+transform:scale(1.15) rotate(10deg);
+
+box-shadow:0 0 40px rgba(255,100,0,1);
 
 }
 
@@ -146,12 +165,20 @@ z-index:99;
 
 display:none;
 position:fixed;
-top:95px;
+top:110px;
 right:20px;
-background:rgba(0,0,0,0.9);
+
+background:rgba(0,0,0,0.95);
+
 padding:20px;
-border-radius:15px;
-z-index:99;
+
+border-radius:20px;
+
+border:2px solid gold;
+
+box-shadow:0 0 20px gold;
+
+z-index:999;
 
 }
 
@@ -400,8 +427,10 @@ document.getElementById("site").style.display="block";
 
 
 document.getElementById("bienvenue").innerHTML =
-id==="administrateur" ?
-"👑 Bonjour admin !" :
+id==="administrateur"
+?
+"👑 Bienvenue administrateur<br><small>Ici, vous pouvez faire ce que vous voulez.</small>"
+:
 "Bonjour "+id+" !";
 
 
