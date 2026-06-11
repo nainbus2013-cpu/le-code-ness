@@ -111,6 +111,51 @@ color:white;
 }
 
 
+
+/* ADMIN */
+
+#adminBtn{
+
+display:none;
+position:fixed;
+top:20px;
+right:20px;
+width:60px;
+height:60px;
+border-radius:50%;
+background:red;
+color:white;
+font-size:25px;
+cursor:pointer;
+z-index:999;
+
+}
+
+
+
+#adminPanel{
+
+display:none;
+position:fixed;
+top:90px;
+right:20px;
+background:rgba(0,0,0,0.85);
+padding:20px;
+border-radius:15px;
+z-index:999;
+
+}
+
+
+
+.bloque{
+
+opacity:0.4;
+pointer-events:none;
+
+}
+
+
 </style>
 
 
@@ -119,6 +164,7 @@ color:white;
 
 
 <body>
+
 
 
 <div id="connexion">
@@ -165,9 +211,6 @@ Accès privé
 <h2 id="bienvenue"></h2>
 
 
-<br>
-
-
 <button class="son" onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/ca-va-peter.mp3')">
 sa va peter
 </button>
@@ -198,7 +241,29 @@ caca delicieux
 </button>
 
 
+
 </div>
+
+
+
+<!-- BOUTON ADMIN -->
+
+<button id="adminBtn" onclick="ouvrirAdmin()">⚙️</button>
+
+
+<div id="adminPanel">
+
+<h3>Admin</h3>
+
+<button onclick="bloquer(0)">Bouton 1</button>
+<button onclick="bloquer(1)">Bouton 2</button>
+<button onclick="bloquer(2)">Bouton 3</button>
+<button onclick="bloquer(3)">Bouton 4</button>
+<button onclick="bloquer(4)">Bouton 5</button>
+<button onclick="bloquer(5)">Bouton 6</button>
+
+</div>
+
 
 
 
@@ -209,7 +274,7 @@ caca delicieux
 
 const comptes = {
 
-"administrateur":"Theoleroy2013",
+"administrateur":"Théoleroy2013*",
 
 "barbancon":"kaboom08"
 
@@ -222,33 +287,36 @@ const comptes = {
 function connexion(){
 
 
-let id = document.getElementById("identifiant").value;
+let id=document.getElementById("identifiant").value;
 
-let mdp = document.getElementById("motdepasse").value;
+let mdp=document.getElementById("motdepasse").value;
 
 
 
-if(comptes[id] && comptes[id] === mdp){
+if(comptes[id] && comptes[id]===mdp){
 
 
 document.getElementById("connexion").style.display="none";
-
 
 document.getElementById("site").style.display="block";
 
 
 
-// message selon le compte
+if(id==="administrateur"){
 
-if(id === "administrateur"){
+
+document.getElementById("adminBtn").style.display="block";
 
 document.getElementById("bienvenue").innerHTML="👑 Bonjour admin !";
+
 
 }
 
 else{
 
-document.getElementById("bienvenue").innerHTML="Bonjour " + id + " !";
+
+document.getElementById("bienvenue").innerHTML="Bonjour "+id+" !";
+
 
 }
 
@@ -271,10 +339,11 @@ alert("Identifiant ou mot de passe incorrect");
 
 
 
+
+
 let audioActuel=null;
 
 let boutonActuel=null;
-
 
 
 
@@ -290,7 +359,6 @@ audioActuel.currentTime=0;
 }
 
 
-
 if(boutonActuel){
 
 boutonActuel.classList.remove("playing");
@@ -298,9 +366,7 @@ boutonActuel.classList.remove("playing");
 }
 
 
-
 audioActuel=new Audio(url);
-
 
 boutonActuel=bouton;
 
@@ -317,6 +383,71 @@ audioActuel.onended=()=>{
 bouton.classList.remove("playing");
 
 };
+
+
+}
+
+
+
+
+
+
+let bloque=[];
+
+
+
+function ouvrirAdmin(){
+
+
+let p=document.getElementById("adminPanel");
+
+
+if(p.style.display==="block"){
+
+p.style.display="none";
+
+}
+
+else{
+
+p.style.display="block";
+
+}
+
+
+}
+
+
+
+
+function bloquer(numero){
+
+
+let boutons=document.querySelectorAll(".son");
+
+let bouton=boutons[numero];
+
+
+
+if(bloque.includes(numero)){
+
+
+bloque=bloque.filter(x=>x!==numero);
+
+bouton.classList.remove("bloque");
+
+
+}
+
+else{
+
+
+bloque.push(numero);
+
+bouton.classList.add("bloque");
+
+
+}
 
 
 }
