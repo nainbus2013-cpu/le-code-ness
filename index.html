@@ -12,21 +12,14 @@
 
 body{
 font-family:Arial,sans-serif;
-background:url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+background-image:url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
 background-size:cover;
+background-position:center;
 background-attachment:fixed;
 color:white;
 text-align:center;
 padding:40px;
-}
-
-
-#connexion{
-background:rgba(0,0,0,0.7);
-padding:30px;
-border-radius:20px;
-width:300px;
-margin:auto;
+min-height:100vh;
 }
 
 
@@ -38,50 +31,95 @@ display:inline-block;
 }
 
 
+
+#connexion{
+
+background:rgba(0,0,0,0.7);
+padding:30px;
+border-radius:20px;
+width:300px;
+margin:auto;
+
+}
+
+
+
 input{
+
 width:90%;
 padding:15px;
 margin:10px;
 border-radius:10px;
 border:none;
+font-size:18px;
+
 }
 
-
-button{
-cursor:pointer;
-border:none;
-border-radius:15px;
-}
 
 
 .login{
+
 width:200px;
 height:60px;
 background:#00c6ff;
 color:white;
+border:none;
+border-radius:15px;
 font-size:20px;
+
 }
+
 
 
 #site{
+
 display:none;
+
 }
 
 
+
 .son{
+
 width:200px;
 height:200px;
 margin:10px;
 font-size:22px;
+font-weight:bold;
+border:none;
+border-radius:20px;
+cursor:pointer;
 background:white;
 color:black;
+
 }
+
+
+
+.son:hover{
+
+transform:scale(1.08);
+
+}
+
+
+
+.playing{
+
+background:limegreen;
+color:white;
+
+}
+
 
 
 .bloque{
+
 opacity:0.4;
 pointer-events:none;
+
 }
+
 
 
 
@@ -97,6 +135,8 @@ border-radius:50%;
 background:red;
 color:white;
 font-size:25px;
+border:none;
+z-index:99;
 
 }
 
@@ -111,8 +151,10 @@ right:20px;
 background:rgba(0,0,0,0.9);
 padding:20px;
 border-radius:15px;
+z-index:99;
 
 }
+
 
 
 #adminMenu button{
@@ -121,8 +163,10 @@ display:block;
 width:220px;
 margin:10px;
 padding:15px;
+border-radius:10px;
 
 }
+
 
 
 </style>
@@ -152,11 +196,14 @@ padding:15px;
 
 
 <button class="login" onclick="connexion()">
+
 Entrer
+
 </button>
 
 
 </div>
+
 
 
 
@@ -169,6 +216,8 @@ Entrer
 
 
 <h2 id="bienvenue"></h2>
+
+
 
 
 
@@ -201,13 +250,27 @@ arracher les yeux
 </button>
 
 
+
+<button class="son" onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/caca_c_d_licieux_.mp3')">
+caca delicieux
+</button>
+
+
+
 </div>
 
 
 
 
 
-<button id="adminBtn" onclick="ouvrirAdmin()">⚙️</button>
+
+<button id="adminBtn" onclick="ouvrirAdmin()">
+
+⚙️
+
+</button>
+
+
 
 
 
@@ -218,17 +281,25 @@ arracher les yeux
 
 
 <button onclick="verrouSite()">
-🔒 Verrouiller / déverrouiller
+
+🔒 Verrouiller / Déverrouiller
+
 </button>
+
 
 
 <button onclick="bloquerSons()">
-🔇 Bloquer / débloquer sons
+
+🔇 Bloquer / Débloquer sons
+
 </button>
 
 
+
 <button onclick="gererUtilisateur()">
-👤 Bloquer / débloquer utilisateur
+
+👤 Bloquer / Débloquer utilisateur
+
 </button>
 
 
@@ -247,7 +318,7 @@ arracher les yeux
 
 const comptes={
 
-"administrateur":"Theoleroy2013",
+"administrateur":"Théoleroy2013*",
 
 "barbancon":"kaboom08"
 
@@ -269,6 +340,13 @@ JSON.parse(localStorage.getItem("sonsBloques")) || [];
 let usersBloques =
 JSON.parse(localStorage.getItem("usersBloques")) || [];
 
+
+
+
+
+let audioActuel=null;
+
+let boutonActuel=null;
 
 
 
@@ -315,7 +393,6 @@ return;
 
 
 
-
 document.getElementById("connexion").style.display="none";
 
 document.getElementById("site").style.display="block";
@@ -329,11 +406,13 @@ id==="administrateur" ?
 
 
 
+
 if(id==="administrateur"){
 
 document.getElementById("adminBtn").style.display="block";
 
 }
+
 
 
 chargerBlocages();
@@ -350,13 +429,59 @@ chargerBlocages();
 function jouer(b,url){
 
 
-if(b.classList.contains("bloque")) return;
+if(b.classList.contains("bloque")){
+
+return;
+
+}
 
 
-new Audio(url).play();
+
+if(audioActuel){
+
+audioActuel.pause();
+
+audioActuel.currentTime=0;
+
+}
+
+
+
+if(boutonActuel){
+
+boutonActuel.classList.remove("playing");
+
+}
+
+
+
+
+audioActuel=new Audio(url);
+
+
+boutonActuel=b;
+
+
+b.classList.add("playing");
+
+
+
+audioActuel.play();
+
+
+
+audioActuel.onended=()=>{
+
+
+b.classList.remove("playing");
+
+
+};
+
 
 
 }
+
 
 
 
@@ -392,12 +517,16 @@ verrou=!verrou;
 localStorage.setItem("verrou",verrou);
 
 
-alert(verrou ?
+alert(
+verrou ?
 "🔒 Site verrouillé":
-"🔓 Site déverrouillé");
+"🔓 Site déverrouillé"
+);
 
 
 }
+
+
 
 
 
@@ -433,16 +562,13 @@ sonsBloques.filter(x=>x!==i);
 }
 
 
-
 });
-
 
 
 localStorage.setItem(
 "sonsBloques",
 JSON.stringify(sonsBloques)
 );
-
 
 
 }
@@ -453,12 +579,12 @@ JSON.stringify(sonsBloques)
 
 
 
+
+
 function gererUtilisateur(){
 
 
-let nom=prompt(
-"Nom du compte à bloquer/débloquer :"
-);
+let nom=prompt("Nom du compte :");
 
 
 
@@ -477,7 +603,6 @@ if(usersBloques.includes(nom)){
 
 usersBloques =
 usersBloques.filter(x=>x!==nom);
-
 
 
 alert("✅ Utilisateur débloqué");
@@ -513,6 +638,7 @@ JSON.stringify(usersBloques)
 
 
 
+
 function chargerBlocages(){
 
 
@@ -534,8 +660,10 @@ b.classList.add("bloque");
 
 
 
+
 </script>
 
 
 </body>
+
 </html>
