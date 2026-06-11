@@ -12,14 +12,21 @@
 
 body{
 font-family:Arial,sans-serif;
-background-image:url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+background:url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
 background-size:cover;
-background-position:center;
 background-attachment:fixed;
 color:white;
 text-align:center;
 padding:40px;
-min-height:100vh;
+}
+
+
+#connexion{
+background:rgba(0,0,0,0.7);
+padding:30px;
+border-radius:20px;
+width:300px;
+margin:auto;
 }
 
 
@@ -31,46 +38,28 @@ display:inline-block;
 }
 
 
-#connexion{
-
-background:rgba(0,0,0,0.7);
-padding:30px;
-border-radius:20px;
-width:300px;
-margin:auto;
-
-}
-
-
 input{
-
 width:90%;
 padding:15px;
 margin:10px;
 border-radius:10px;
 border:none;
-font-size:18px;
-
 }
 
 
 button{
-
 cursor:pointer;
-
+border:none;
+border-radius:15px;
 }
 
 
 .login{
-
 width:200px;
 height:60px;
 background:#00c6ff;
 color:white;
-border:none;
-border-radius:15px;
 font-size:20px;
-
 }
 
 
@@ -79,28 +68,19 @@ display:none;
 }
 
 
-
 .son{
-
 width:200px;
 height:200px;
 margin:10px;
 font-size:22px;
-font-weight:bold;
-border:none;
-border-radius:20px;
 background:white;
 color:black;
-
 }
 
 
-
-.playing{
-
-background:limegreen;
-color:white;
-
+.bloque{
+opacity:0.4;
+pointer-events:none;
 }
 
 
@@ -117,11 +97,8 @@ border-radius:50%;
 background:red;
 color:white;
 font-size:25px;
-border:none;
-z-index:99;
 
 }
-
 
 
 
@@ -134,7 +111,6 @@ right:20px;
 background:rgba(0,0,0,0.9);
 padding:20px;
 border-radius:15px;
-z-index:99;
 
 }
 
@@ -142,23 +118,15 @@ z-index:99;
 #adminMenu button{
 
 display:block;
-width:180px;
-margin:8px;
-padding:12px;
-border-radius:10px;
+width:220px;
+margin:10px;
+padding:15px;
 
 }
 
-
-
-.bloque{
-
-opacity:0.4;
-pointer-events:none;
-
-}
 
 </style>
+
 
 </head>
 
@@ -194,15 +162,13 @@ Entrer
 
 
 
-
-
 <div id="site">
 
 
 <h1>🎵 Le Code Ness 🎵</h1>
 
-<h2 id="bienvenue"></h2>
 
+<h2 id="bienvenue"></h2>
 
 
 
@@ -211,9 +177,11 @@ sa va peter
 </button>
 
 
+
 <button class="son" onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/couscous-merguez.mp3')">
 coucous mergez
 </button>
+
 
 
 <button class="son" onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/quoi-de-neuf-dans-ton-troue.mp3')">
@@ -221,20 +189,16 @@ ton trou
 </button>
 
 
+
 <button class="son" onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/vos-meres-cest-des-dinosaures-tk78%20(1).mp3')">
 vos mere les dinozaures
 </button>
 
 
+
 <button class="son" onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/detecteur-de-mensonges-des-enfants-_-louna-ccvb-4.mp3')">
 arracher les yeux
 </button>
-
-
-<button class="son" onclick="jouer(this,'https://ztroeabflzrbxhxewsrc.supabase.co/storage/v1/object/public/sons/caca_c_d_licieux_.mp3')">
-caca delicieux
-</button>
-
 
 
 </div>
@@ -263,9 +227,10 @@ caca delicieux
 </button>
 
 
-<button onclick="bloquerUtilisateur()">
-👤 Bloquer utilisateur
+<button onclick="gererUtilisateur()">
+👤 Bloquer / débloquer utilisateur
 </button>
+
 
 
 </div>
@@ -282,7 +247,7 @@ caca delicieux
 
 const comptes={
 
-"administrateur":"Theoleroy2013",
+"administrateur":"Théoleroy2013*",
 
 "barbancon":"kaboom08"
 
@@ -290,8 +255,10 @@ const comptes={
 
 
 
+
 let verrou =
 localStorage.getItem("verrou")==="true";
+
 
 
 let sonsBloques =
@@ -327,7 +294,6 @@ return;
 
 
 
-
 if(verrou && id!=="administrateur"){
 
 alert("🔧 Désolé, le site est en mise à jour. Contactez l'administrateur.");
@@ -340,7 +306,7 @@ return;
 
 if(usersBloques.includes(id)){
 
-alert("⛔ Compte bloqué");
+alert("⛔ Ce compte est bloqué");
 
 return;
 
@@ -363,13 +329,11 @@ id==="administrateur" ?
 
 
 
-
 if(id==="administrateur"){
 
 document.getElementById("adminBtn").style.display="block";
 
 }
-
 
 
 chargerBlocages();
@@ -383,23 +347,16 @@ chargerBlocages();
 
 
 
-
-
 function jouer(b,url){
 
 
-if(b.classList.contains("bloque")){
-
-return;
-
-}
+if(b.classList.contains("bloque")) return;
 
 
 new Audio(url).play();
 
 
 }
-
 
 
 
@@ -431,16 +388,16 @@ function verrouSite(){
 
 verrou=!verrou;
 
+
 localStorage.setItem("verrou",verrou);
 
 
 alert(verrou ?
-"Site verrouillé":
-"Site déverrouillé");
+"🔒 Site verrouillé":
+"🔓 Site déverrouillé");
 
 
 }
-
 
 
 
@@ -459,14 +416,19 @@ b.classList.toggle("bloque");
 
 if(b.classList.contains("bloque")){
 
+
+if(!sonsBloques.includes(i))
 sonsBloques.push(i);
+
 
 }
 
 else{
 
+
 sonsBloques =
 sonsBloques.filter(x=>x!==i);
+
 
 }
 
@@ -482,22 +444,58 @@ JSON.stringify(sonsBloques)
 );
 
 
+
 }
 
 
 
 
 
-function bloquerUtilisateur(){
 
 
-let nom=prompt("Nom du compte à bloquer :");
+function gererUtilisateur(){
 
 
-if(nom && comptes[nom]){
+let nom=prompt(
+"Nom du compte à bloquer/débloquer :"
+);
+
+
+
+if(!nom || nom==="administrateur"){
+
+alert("Impossible");
+
+return;
+
+}
+
+
+
+if(usersBloques.includes(nom)){
+
+
+usersBloques =
+usersBloques.filter(x=>x!==nom);
+
+
+
+alert("✅ Utilisateur débloqué");
+
+
+}
+
+else{
 
 
 usersBloques.push(nom);
+
+
+alert("⛔ Utilisateur bloqué");
+
+
+}
+
 
 
 localStorage.setItem(
@@ -506,12 +504,9 @@ JSON.stringify(usersBloques)
 );
 
 
-alert("Compte bloqué");
 
 }
 
-
-}
 
 
 
